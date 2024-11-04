@@ -53,23 +53,24 @@
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
-    <button id="startButton">Começar Vídeo</button>
     <button id="btnRed">Liberado após terminar o vídeo</button>
     <button id="btnGreen">Link Acesso</button>
 
     <script>
         const video = document.getElementById("myVideo");
-        const startButton = document.getElementById("startButton");
         const btnRed = document.getElementById("btnRed");
         const btnGreen = document.getElementById("btnGreen");
 
-        startButton.addEventListener("click", function() {
-            video.muted = false; // Ativar som
-            video.play(); // Iniciar o vídeo
-            btnRed.style.display = "block"; // Mostrar botão vermelho
-            btnGreen.style.display = "none"; // Esconder botão verde
+        // Reproduzir vídeo com som após iniciar
+        video.muted = false; // Desmutar o vídeo
+        video.play(); // Iniciar o vídeo
 
-            // Exibir o botão verde 7 segundos antes do vídeo terminar
+        // Exibir o botão vermelho logo após o vídeo começar
+        btnRed.style.display = "block"; // Mostrar botão vermelho
+        btnGreen.style.display = "none"; // Esconder botão verde
+
+        // Exibir o botão verde 7 segundos antes do vídeo terminar
+        video.addEventListener("loadedmetadata", function() {
             setTimeout(() => {
                 btnGreen.style.display = "block"; // Mostrar botão verde
             }, (video.duration - 7) * 1000); // Tempo em milissegundos
