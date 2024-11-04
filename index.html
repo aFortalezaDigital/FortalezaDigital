@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortaleza Digital</title> <!-- Título atualizado -->
+    <title>Fortaleza Digital</title>
     <style>
         body {
             background-color: black; /* Fundo preto */
             color: white; /* Texto branco */
             text-align: center; /* Centralizar texto */
             font-family: Arial, sans-serif; /* Fonte simples */
-            position: relative; /* Para posicionar faixas em relação ao botão */
+            position: relative; /* Para posicionar as faixas */
         }
         h1 {
             margin-top: 20px; /* Espaço acima do título */
@@ -19,67 +19,67 @@
             width: 80%; /* Largura do vídeo */
             max-width: 800px; /* Largura máxima do vídeo */
             height: auto; /* Altura automática */
-            border: none; /* Remover borda se necessário */
+            display: none; /* Esconder vídeo inicialmente */
         }
-        .button-container {
-            margin-top: 20px; /* Espaço acima do botão */
-            display: inline-block; /* Para centralizar as faixas */
-            position: relative; /* Para o posicionamento da faixa vermelha */
-        }
-        .button {
-            padding: 15px 30px; /* Espaçamento interno do botão */
-            font-size: 18px; /* Tamanho da fonte */
-            color: white; /* Cor do texto */
-            background-color: #28a745; /* Cor de fundo verde */
-            border: none; /* Sem borda */
-            border-radius: 5px; /* Bordas arredondadas */
-            cursor: pointer; /* Cursor em forma de ponteiro */
-            position: relative; /* Para posicionar as faixas */
-            z-index: 1; /* Para colocar o botão acima das faixas */
-        }
-        .red-stripe {
+        .faixas {
             position: absolute;
             width: 100%;
             height: 100%;
-            border: 4px solid red; /* Borda vermelha */
-            border-radius: 8px; /* Bordas arredondadas */
-            top: -6px; /* Ajusta a posição da faixa */
-            left: -6px; /* Ajusta a posição da faixa */
-            opacity: 1; /* Inicialmente visível */
-            transition: opacity 0.5s; /* Transição suave para desaparecer */
+            top: 0;
+            left: 0;
+            background: linear-gradient(to top left, transparent 49%, red 49%, red 51%, transparent 51%) 0 0,
+                        linear-gradient(to bottom right, transparent 49%, red 49%, red 51%, transparent 51%) 0 0;
+            background-size: 100% 100%;
+            opacity: 0.5; /* Transparência das faixas */
+            display: none; /* Esconder faixas inicialmente */
+        }
+        .button {
+            margin-top: 20px; /* Espaço acima do botão */
+            padding: 10px 20px; /* Espaçamento interno do botão */
+            background-color: green; /* Cor do botão */
+            color: white; /* Cor do texto do botão */
+            border: none; /* Sem borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            cursor: pointer; /* Cursor de pointer ao passar o mouse */
+            font-size: 16px; /* Tamanho da fonte */
+            display: none; /* Esconder botão inicialmente */
         }
     </style>
 </head>
 <body>
     <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
-    <video id="video" autoplay loop>
+    <div class="faixas"></div> <!-- Faixas vermelhas -->
+    <video id="video" autoplay muted loop>
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
-    <div class="button-container">
-        <div class="red-stripe" id="stripe"></div> <!-- Faixa vermelha -->
-        <button id="releaseButton" class="button">Acesso Liberado Após o Vídeo</button> <!-- Botão abaixo do vídeo -->
-    </div>
+    <button class="button" id="playButton">Iniciar Vídeo</button> <!-- Botão para iniciar o vídeo -->
+    <button class="button" id="linkButton" style="display:none;">Liberado após terminar o vídeo</button> <!-- Botão do link -->
 
     <script>
         const video = document.getElementById('video');
-        const releaseButton = document.getElementById('releaseButton');
-        const stripe = document.getElementById('stripe');
+        const playButton = document.getElementById('playButton');
+        const linkButton = document.getElementById('linkButton');
+        const faixas = document.querySelector('.faixas');
 
-        // Função para esconder a faixa após 7 segundos do final do vídeo
-        video.addEventListener('timeupdate', () => {
-            const remainingTime = video.duration - video.currentTime;
-            if (remainingTime <= 7 && remainingTime > 0) {
-                stripe.style.opacity = '0'; // Esconde a faixa vermelha
-            }
-            if (remainingTime <= 0) {
-                releaseButton.style.display = 'none'; // Esconde o botão se o vídeo acabar
-            }
-        });
+        // Exibir as faixas e o vídeo após 1 segundo
+        setTimeout(() => {
+            faixas.style.display = 'block';
+            video.style.display = 'block';
+            playButton.style.display = 'block'; // Exibir botão para iniciar o vídeo
+        }, 1000);
 
-        // Função para redirecionar ao clicar no botão
-        releaseButton.addEventListener('click', () => {
-            window.location.href = 'https://pay.kiwify.com.br/aoj6uLO'; // Link a ser liberado
+        // Quando o botão de iniciar o vídeo for clicado
+        playButton.addEventListener('click', () => {
+            video.play(); // Iniciar o vídeo
+            playButton.style.display = 'none'; // Esconder botão de iniciar
+            faixas.style.display = 'block'; // Mostrar faixas
+            setTimeout(() => {
+                faixas.style.display = 'none'; // Esconder faixas após 7 segundos do vídeo
+            }, (video.duration - 7) * 1000);
+            setTimeout(() => {
+                linkButton.style.display = 'block'; // Mostrar botão do link após 7 segundos
+            }, (video.duration - 7) * 1000);
         });
     </script>
 </body>
