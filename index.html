@@ -3,55 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site com Vídeo</title>
+    <title>Minha VSL</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000; /* Fundo preto */
-            color: #fff; /* Cor do texto branca */
-            font-family: Arial, sans-serif; /* Fonte opcional */
+            background-color: black; /* Fundo preto */
+            color: white; /* Texto branco */
+            text-align: center; /* Centralizar texto */
+            font-family: Arial, sans-serif; /* Fonte simples */
         }
         h1 {
-            margin-bottom: 20px; /* Espaço abaixo do título */
-            font-size: 24px; /* Tamanho do texto */
-            text-align: center; /* Centraliza o texto */
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Sombra para destacar */
+            margin-top: 20px; /* Espaço acima do título */
         }
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* Proporção 16:9 */
-        }
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+        video {
+            width: 80%; /* Largura do vídeo */
+            max-width: 800px; /* Largura máxima do vídeo */
+            height: auto; /* Altura automática */
         }
     </style>
 </head>
 <body>
-    <h1>ASSISTA AO VÍDEO!</h1> <!-- Título adicionado -->
-    <div class="video-container">
-        <iframe 
-            src="https://streamable.com/e/2c75k0?autoplay=1&nocontrols=1" 
-            allow="autoplay; fullscreen" 
-            allowfullscreen>
-        </iframe>
-    </div>
-    <script>
-        // Tenta habilitar o som automaticamente
-        var iframe = document.querySelector('iframe');
-        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    </script>
+    <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
+    <video autoplay muted loop>
+        <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
+        Seu navegador não suporta a tag de vídeo.
+    </video>
 </body>
 </html>
