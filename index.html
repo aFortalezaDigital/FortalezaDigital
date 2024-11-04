@@ -18,10 +18,9 @@
             width: 80%; /* Largura do vídeo */
             max-width: 800px; /* Largura máxima do vídeo */
             height: auto; /* Altura automática */
+            margin-bottom: 20px; /* Espaço abaixo do vídeo */
         }
         #linkButton {
-            display: none; /* Inicialmente oculto */
-            margin-top: 20px; /* Espaço acima do botão */
             padding: 15px 30px; /* Aumentar o tamanho do botão */
             background-color: green; /* Cor de fundo do botão */
             color: white; /* Cor do texto do botão */
@@ -33,25 +32,22 @@
 </head>
 <body>
     <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
-    <video id="video" autoplay muted>
+    <video id="video" autoplay>
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
-    <br>
     <button id="linkButton" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Liberado após terminar o vídeo</button>
 
     <script>
         const video = document.getElementById('video');
         const linkButton = document.getElementById('linkButton');
 
-        video.onended = function() {
-            linkButton.style.display = 'block'; // Exibe o botão ao final do vídeo
-        };
-
-        // Exibe o botão 7 segundos antes do vídeo acabar
+        // Muda o texto do botão 7 segundos antes do vídeo acabar
         video.ontimeupdate = function() {
             if (video.currentTime >= video.duration - 7) {
-                linkButton.style.display = 'block'; // Mostra o botão
+                linkButton.innerText = 'Liberado em breve...'; // Mensagem de bloqueio
+            } else {
+                linkButton.innerText = 'Liberado após terminar o vídeo'; // Mensagem normal
             }
         };
     </script>
