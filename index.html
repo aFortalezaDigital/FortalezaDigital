@@ -9,10 +9,19 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0; /* Cor de fundo opcional */
+            background-color: #000; /* Fundo preto */
+            color: #fff; /* Cor do texto branca */
+            font-family: Arial, sans-serif; /* Fonte opcional */
+        }
+        h1 {
+            margin-bottom: 20px; /* Espaço abaixo do título */
+            font-size: 24px; /* Tamanho do texto */
+            text-align: center; /* Centraliza o texto */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Sombra para destacar */
         }
         .video-container {
             position: relative;
@@ -31,12 +40,18 @@
     </style>
 </head>
 <body>
+    <h1>ASSISTA AO VÍDEO!</h1> <!-- Título adicionado -->
     <div class="video-container">
         <iframe 
-            allow="fullscreen; autoplay" 
-            allowfullscreen 
             src="https://streamable.com/e/2c75k0?autoplay=1&nocontrols=1" 
-        ></iframe>
+            allow="autoplay; fullscreen" 
+            allowfullscreen>
+        </iframe>
     </div>
+    <script>
+        // Tenta habilitar o som automaticamente
+        var iframe = document.querySelector('iframe');
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    </script>
 </body>
 </html>
