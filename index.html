@@ -1,24 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha VSL</title>
+    <title>Meu Site com Vídeo</title>
     <style>
-        /* Centraliza o vídeo na página */
         body {
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #000; /* Fundo preto para destacar o vídeo */
+            background-color: #f0f0f0; /* Cor de fundo opcional */
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
         }
         iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: none;
         }
     </style>
 </head>
 <body>
-   <iframe width="560" height="315" src="https://www.youtube.com/embed/FxTkDR-VfOE?controls=0&modestbranding=1&showinfo=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-container">
+        <iframe 
+            allow="fullscreen; autoplay" 
+            allowfullscreen 
+            src="https://streamable.com/e/2c75k0?autoplay=1&nocontrols=1" 
+        ></iframe>
+    </div>
+</body>
 </html>
