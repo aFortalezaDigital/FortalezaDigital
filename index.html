@@ -21,6 +21,7 @@
             max-width: 800px; /* Largura máxima do vídeo */
             height: auto; /* Altura automática */
             display: none; /* Oculta o vídeo inicialmente */
+            margin: 0 auto; /* Centraliza o vídeo */
         }
         #playButton {
             padding: 15px 30px; /* Espaçamento interno do botão */
@@ -31,6 +32,8 @@
             border-radius: 5px; /* Bordas arredondadas */
             cursor: pointer; /* Cursor de mão ao passar sobre o botão */
             transition: background-color 0.3s; /* Efeito de transição */
+            display: none; /* Esconde o botão inicialmente */
+            margin-top: 20px; /* Espaço acima do botão */
         }
         #playButton:hover {
             background-color: darkgreen; /* Cor do botão ao passar o mouse */
@@ -44,23 +47,29 @@
             border-radius: 5px; /* Bordas arredondadas */
             cursor: default; /* Cursor padrão */
             display: none; /* Oculta o botão inicialmente */
+            margin-top: 20px; /* Espaço acima do botão */
         }
     </style>
 </head>
 <body>
     <h1>ASSISTA AO VÍDEO!</h1>
-    <video id="video" autoplay muted>
+    <video id="video" autoplay>
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
     <button id="playButton">Começar Vídeo</button>
-    <br><br>
+    <br>
     <button id="unlockButton">Liberado após terminar o vídeo</button>
 
     <script>
         const video = document.getElementById('video');
         const playButton = document.getElementById('playButton');
         const unlockButton = document.getElementById('unlockButton');
+
+        // Exibe o botão "Começar Vídeo" ao carregar a página
+        window.onload = function() {
+            playButton.style.display = 'inline-block'; // Mostra o botão de play
+        };
 
         playButton.addEventListener('click', function() {
             video.style.display = 'block'; // Exibe o vídeo
