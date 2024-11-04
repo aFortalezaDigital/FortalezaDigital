@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha VSL</title>
+    <title>Fortaleza Digital</title> <!-- Título atualizado -->
     <style>
         body {
             background-color: black; /* Fundo preto */
             color: white; /* Texto branco */
             text-align: center; /* Centralizar texto */
             font-family: Arial, sans-serif; /* Fonte simples */
+            position: relative; /* Para posicionar faixas em relação ao botão */
         }
         h1 {
             margin-top: 20px; /* Espaço acima do título */
@@ -20,13 +21,66 @@
             height: auto; /* Altura automática */
             border: none; /* Remover borda se necessário */
         }
+        .button-container {
+            margin-top: 20px; /* Espaço acima do botão */
+            display: inline-block; /* Para centralizar as faixas */
+            position: relative; /* Para o posicionamento da faixa vermelha */
+        }
+        .button {
+            padding: 15px 30px; /* Espaçamento interno do botão */
+            font-size: 18px; /* Tamanho da fonte */
+            color: white; /* Cor do texto */
+            background-color: #28a745; /* Cor de fundo verde */
+            border: none; /* Sem borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            cursor: pointer; /* Cursor em forma de ponteiro */
+            position: relative; /* Para posicionar as faixas */
+            z-index: 1; /* Para colocar o botão acima das faixas */
+        }
+        .red-stripe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid red; /* Borda vermelha */
+            border-radius: 8px; /* Bordas arredondadas */
+            top: -6px; /* Ajusta a posição da faixa */
+            left: -6px; /* Ajusta a posição da faixa */
+            opacity: 1; /* Inicialmente visível */
+            transition: opacity 0.5s; /* Transição suave para desaparecer */
+        }
     </style>
 </head>
 <body>
     <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
-    <video autoplay loop>
+    <video id="video" autoplay loop>
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
+    <div class="button-container">
+        <div class="red-stripe" id="stripe"></div> <!-- Faixa vermelha -->
+        <button id="releaseButton" class="button">Acesso Liberado Após o Vídeo</button> <!-- Botão abaixo do vídeo -->
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const releaseButton = document.getElementById('releaseButton');
+        const stripe = document.getElementById('stripe');
+
+        // Função para esconder a faixa após 7 segundos do final do vídeo
+        video.addEventListener('timeupdate', () => {
+            const remainingTime = video.duration - video.currentTime;
+            if (remainingTime <= 7 && remainingTime > 0) {
+                stripe.style.opacity = '0'; // Esconde a faixa vermelha
+            }
+            if (remainingTime <= 0) {
+                releaseButton.style.display = 'none'; // Esconde o botão se o vídeo acabar
+            }
+        });
+
+        // Função para redirecionar ao clicar no botão
+        releaseButton.addEventListener('click', () => {
+            window.location.href = 'https://pay.kiwify.com.br/aoj6uLO'; // Link a ser liberado
+        });
+    </script>
 </body>
 </html>
