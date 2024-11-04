@@ -10,7 +10,6 @@
             color: white; /* Texto branco */
             text-align: center; /* Centralizar texto */
             font-family: Arial, sans-serif; /* Fonte simples */
-            position: relative; /* Para posicionar as faixas */
         }
         h1 {
             margin-top: 20px; /* Espaço acima do título */
@@ -19,68 +18,42 @@
             width: 80%; /* Largura do vídeo */
             max-width: 800px; /* Largura máxima do vídeo */
             height: auto; /* Altura automática */
-            display: none; /* Esconder vídeo inicialmente */
         }
-        .faixas {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: linear-gradient(to top left, transparent 49%, red 49%, red 51%, transparent 51%) 0 0,
-                        linear-gradient(to bottom right, transparent 49%, red 49%, red 51%, transparent 51%) 0 0;
-            background-size: 100% 100%;
-            opacity: 0.5; /* Transparência das faixas */
-            display: none; /* Esconder faixas inicialmente */
-        }
-        .button {
+        #linkButton {
+            display: none; /* Inicialmente oculto */
             margin-top: 20px; /* Espaço acima do botão */
-            padding: 10px 20px; /* Espaçamento interno do botão */
-            background-color: green; /* Cor do botão */
+            padding: 15px 30px; /* Aumentar o tamanho do botão */
+            background-color: green; /* Cor de fundo do botão */
             color: white; /* Cor do texto do botão */
             border: none; /* Sem borda */
-            border-radius: 5px; /* Bordas arredondadas */
-            cursor: pointer; /* Cursor de pointer ao passar o mouse */
-            font-size: 16px; /* Tamanho da fonte */
-            display: none; /* Esconder botão inicialmente */
+            font-size: 18px; /* Tamanho da fonte */
+            cursor: pointer; /* Cursor de ponteiro */
         }
     </style>
 </head>
 <body>
     <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
-    <div class="faixas"></div> <!-- Faixas vermelhas -->
-    <video id="video" autoplay muted loop>
+    <video id="video" autoplay muted>
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
-    <button class="button" id="playButton">Iniciar Vídeo</button> <!-- Botão para iniciar o vídeo -->
-    <button class="button" id="linkButton" style="display:none;">Liberado após terminar o vídeo</button> <!-- Botão do link -->
+    <br>
+    <button id="linkButton" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Liberado após terminar o vídeo</button>
 
     <script>
         const video = document.getElementById('video');
-        const playButton = document.getElementById('playButton');
         const linkButton = document.getElementById('linkButton');
-        const faixas = document.querySelector('.faixas');
 
-        // Exibir as faixas e o vídeo após 1 segundo
-        setTimeout(() => {
-            faixas.style.display = 'block';
-            video.style.display = 'block';
-            playButton.style.display = 'block'; // Exibir botão para iniciar o vídeo
-        }, 1000);
+        video.onended = function() {
+            linkButton.style.display = 'block'; // Exibe o botão ao final do vídeo
+        };
 
-        // Quando o botão de iniciar o vídeo for clicado
-        playButton.addEventListener('click', () => {
-            video.play(); // Iniciar o vídeo
-            playButton.style.display = 'none'; // Esconder botão de iniciar
-            faixas.style.display = 'block'; // Mostrar faixas
-            setTimeout(() => {
-                faixas.style.display = 'none'; // Esconder faixas após 7 segundos do vídeo
-            }, (video.duration - 7) * 1000);
-            setTimeout(() => {
-                linkButton.style.display = 'block'; // Mostrar botão do link após 7 segundos
-            }, (video.duration - 7) * 1000);
-        });
+        // Exibe o botão 7 segundos antes do vídeo acabar
+        video.ontimeupdate = function() {
+            if (video.currentTime >= video.duration - 7) {
+                linkButton.style.display = 'block'; // Mostra o botão
+            }
+        };
     </script>
 </body>
 </html>
