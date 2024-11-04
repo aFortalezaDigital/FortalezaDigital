@@ -18,11 +18,23 @@
             width: 80%; /* Largura do vídeo */
             max-width: 800px; /* Largura máxima do vídeo */
             height: auto; /* Altura automática */
-            pointer-events: none; /* Impede interação com o vídeo */
+            display: none; /* Ocultar vídeo inicialmente */
         }
-        .button {
-            display: none; /* Inicialmente oculto */
+        .play-button {
+            padding: 15px 30px; /* Tamanho do botão */
+            font-size: 18px; /* Tamanho da fonte */
+            background-color: green; /* Cor do botão */
+            color: white; /* Cor do texto do botão */
+            border: none; /* Sem borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            cursor: pointer; /* Mão ao passar o mouse */
             margin-top: 20px; /* Espaço acima do botão */
+        }
+        .button-container {
+            margin-top: 20px; /* Espaço acima do botão */
+            display: none; /* Ocultar botão inicialmente */
+        }
+        .link-button {
             padding: 15px 30px; /* Tamanho do botão */
             font-size: 18px; /* Tamanho da fonte */
             background-color: green; /* Cor do botão */
@@ -31,38 +43,45 @@
             border-radius: 5px; /* Bordas arredondadas */
             cursor: pointer; /* Mão ao passar o mouse */
         }
-        .message {
-            margin-top: 20px; /* Espaço acima da mensagem */
-            font-size: 18px; /* Tamanho da fonte da mensagem */
-        }
     </style>
 </head>
 <body>
     <h1>ASSISTA AO VIDEO!</h1>
-    <video autoplay loop>
+    
+    <!-- Botão para iniciar o vídeo -->
+    <button class="play-button" id="playButton" onclick="playVideo()">NA VSL</button>
+    
+    <video id="myVideo">
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
 
-    <div class="message">Este link será liberado após o término do vídeo.</div>
-    <button class="button" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Liberar Link</button>
+    <div class="button-container" id="buttonContainer">
+        <button class="link-button" id="linkButton" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Liberado após terminar o vídeo</button>
+    </div>
 
     <script>
-        const video = document.querySelector('video');
-        const button = document.querySelector('.button');
+        const video = document.getElementById('myVideo');
+        const buttonContainer = document.getElementById('buttonContainer');
 
-        // Verifique se o vídeo está carregado e obtenha a duração total
-        video.addEventListener('loadedmetadata', function() {
-            const totalDuration = video.duration; // Duração total do vídeo
-            const unlockTime = totalDuration - 7; // 7 segundos antes do final
+        // Função para reproduzir o vídeo
+        function playVideo() {
+            video.style.display = 'block'; // Mostrar o vídeo
+            video.play(); // Iniciar a reprodução do vídeo
+            document.getElementById('playButton').style.display = 'none'; // Ocultar o botão de play
+        }
 
-            video.play(); // Inicia o vídeo
-
-            // Exibir o botão após o tempo de bloqueio
-            setTimeout(function() {
-                button.style.display = 'block'; // Mostra o botão
-            }, unlockTime * 1000); // Em milissegundos
+        // Mostrar o botão 7 segundos antes do vídeo terminar
+        video.addEventListener('timeupdate', function() {
+            const duration = video.duration;
+            const currentTime = video.currentTime;
+            if (duration - currentTime <= 7 && !buttonContainer.style.display) {
+                buttonContainer.style.display = 'block'; // Mostrar botão
+            }
         });
+
+        // Remover a possibilidade de download e controlar a linha do tempo
+        video.controls = false; // Ocultar controles
     </script>
 </body>
 </html>
