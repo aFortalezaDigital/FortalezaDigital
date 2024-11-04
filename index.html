@@ -23,54 +23,65 @@
             display: block; /* Centralizar vídeo */
             margin: 0 auto; /* Centralizar vídeo */
         }
-        #btnRed {
+        #startButton {
+            background-color: #007bff; /* Azul */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        #btnRed, #btnGreen {
             display: none; /* Escondido inicialmente */
-            background-color: red; /* Cor do botão vermelho */
-            color: white; /* Texto branco */
-            border: none; /* Sem borda */
-            padding: 15px 30px; /* Espaçamento */
-            border-radius: 5px; /* Bordas arredondadas */
-            font-size: 18px; /* Tamanho da fonte */
-            cursor: pointer; /* Cursor de pointer */
-            margin-top: 20px; /* Espaço acima do botão */
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: not-allowed;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        #btnRed {
+            background-color: red;
+            color: white;
         }
         #btnGreen {
-            display: none; /* Escondido inicialmente */
-            background-color: green; /* Cor do botão verde */
-            color: white; /* Texto branco */
-            border: none; /* Sem borda */
-            padding: 15px 30px; /* Espaçamento */
-            border-radius: 5px; /* Bordas arredondadas */
-            font-size: 18px; /* Tamanho da fonte */
-            cursor: pointer; /* Cursor de pointer */
-            margin-top: 20px; /* Espaço acima do botão */
+            background-color: green;
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
-    <video id="myVideo" autoplay playsinline>
+    <video id="myVideo" controls="controls" playsinline style="display: none;">
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
+    <button id="startButton" onclick="startVideo()">Começar Vídeo</button>
     <button id="btnRed">Liberado após terminar o vídeo</button>
-    <button id="btnGreen">Link Acesso</button>
+    <button id="btnGreen" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Link Acesso</button>
 
     <script>
         const video = document.getElementById("myVideo");
+        const startButton = document.getElementById("startButton");
         const btnRed = document.getElementById("btnRed");
         const btnGreen = document.getElementById("btnGreen");
 
-        // Exibir o botão vermelho logo após o vídeo começar
-        video.addEventListener('playing', () => {
+        function startVideo() {
+            video.style.display = "block"; // Mostrar o vídeo
+            startButton.style.display = "none"; // Esconder o botão de começar
+            video.play(); // Reproduzir o vídeo
+
+            // Exibir o botão vermelho logo após o vídeo começar
             btnRed.style.display = "block"; // Mostrar botão vermelho
-            btnGreen.style.display = "none"; // Esconder botão verde
-        });
+        }
 
         // Exibir o botão verde 7 segundos antes do vídeo terminar
         video.addEventListener("loadedmetadata", function() {
             setTimeout(() => {
                 btnGreen.style.display = "block"; // Mostrar botão verde
+                btnRed.style.display = "none"; // Esconder botão vermelho
             }, (video.duration - 7) * 1000); // Tempo em milissegundos
         });
     </script>
