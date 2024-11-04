@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,53 +10,57 @@
             color: white; /* Texto branco */
             text-align: center; /* Centralizar texto */
             font-family: Arial, sans-serif; /* Fonte simples */
+            margin: 0; /* Remove margens do corpo */
+            padding: 20px; /* Espaçamento interno */
         }
         h1 {
             margin-top: 20px; /* Espaço acima do título */
         }
         video {
-            width: 80%; /* Largura do vídeo */
+            width: 100%; /* Largura total do vídeo */
             max-width: 800px; /* Largura máxima do vídeo */
             height: auto; /* Altura automática */
+            margin-bottom: 20px; /* Espaço abaixo do vídeo */
         }
         .link-button {
             background-color: green; /* Cor de fundo verde */
             color: white; /* Texto branco */
-            font-size: 18px; /* Tamanho da fonte */
+            font-size: 20px; /* Tamanho da fonte */
             padding: 15px 30px; /* Espaçamento interno */
             border: none; /* Sem borda */
             border-radius: 25px; /* Bordas arredondadas */
             cursor: pointer; /* Cursor de ponteiro */
             display: none; /* Inicialmente oculto */
             transition: opacity 0.5s ease; /* Efeito de transição */
+            margin-top: 20px; /* Espaço acima do botão */
         }
-        /* Estilo para quando o botão deve ser exibido */
         .link-button.visible {
             display: inline-block; /* Exibe o botão */
         }
+        #lockMessage {
+            margin-top: 10px; /* Espaço acima da mensagem de bloqueio */
+            display: block; /* Exibe a mensagem */
+        }
         @media (max-width: 600px) {
             video {
-                width: 90%; /* Largura do vídeo em dispositivos móveis */
-            }
-            .link-button {
-                margin-top: 20px; /* Espaço acima do botão em dispositivos móveis */
+                margin-top: 20px; /* Espaço acima do vídeo em dispositivos móveis */
             }
         }
     </style>
 </head>
 <body>
     <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
-    <video autoplay muted>
+    <video id="video" controls autoplay>
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
     <div id="button-container">
-        <button class="link-button" id="linkButton" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Liberado após terminar o vídeo</button>
         <p id="lockMessage">Aguarde... O link será desbloqueado após o vídeo.</p>
+        <button class="link-button" id="linkButton" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Liberado após terminar o vídeo</button>
     </div>
 
     <script>
-        const video = document.querySelector('video');
+        const video = document.getElementById('video');
         const linkButton = document.getElementById('linkButton');
         const lockMessage = document.getElementById('lockMessage');
         const totalDuration = 30; // Duração total do vídeo em segundos
