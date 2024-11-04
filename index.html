@@ -5,26 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortaleza Digital</title>
     <style>
+        /* Estilos gerais para centralizar o conteúdo */
         body {
-            background-color: black; /* Fundo preto */
-            color: white; /* Texto branco */
-            text-align: center; /* Centralizar texto */
-            font-family: Arial, sans-serif; /* Fonte simples */
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
+        
         h1 {
-            margin-top: 20px; /* Espaço acima do título */
+            margin-top: 20px;
         }
+
+        /* Contêiner para centralizar vídeo e botões */
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Estilo do vídeo */
         video {
-            width: 100%; /* Largura do vídeo responsiva */
-            max-width: 800px; /* Largura máxima do vídeo */
-            height: auto; /* Altura automática */
-            display: block; /* Centralizar vídeo */
-            margin: 0 auto; /* Centralizar vídeo */
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: none; /* Inicialmente oculto até iniciar */
         }
+
+        /* Botão de iniciar o vídeo */
         #startButton {
-            background-color: #007bff; /* Azul */
+            background-color: #007bff;
             color: white;
             border: none;
             padding: 15px 30px;
@@ -33,19 +54,26 @@
             border-radius: 5px;
             margin-top: 20px;
         }
-        #btnRed, #btnGreen {
-            display: none; /* Escondido inicialmente */
+
+        /* Botão de bloqueio em vermelho */
+        #btnRed {
+            display: none;
             padding: 15px 30px;
             font-size: 18px;
-            cursor: not-allowed;
             border-radius: 5px;
             margin-top: 20px;
-        }
-        #btnRed {
             background-color: red;
             color: white;
+            cursor: not-allowed;
         }
+
+        /* Botão verde de link */
         #btnGreen {
+            display: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 20px;
             background-color: green;
             color: white;
             cursor: pointer;
@@ -53,14 +81,24 @@
     </style>
 </head>
 <body>
-    <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
-    <video id="myVideo" controls="controls" playsinline style="display: none;">
-        <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
-        Seu navegador não suporta a tag de vídeo.
-    </video>
-    <button id="startButton" onclick="startVideo()">Começar Vídeo</button>
-    <button id="btnRed">Liberado após terminar o vídeo</button>
-    <button id="btnGreen" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Link Acesso</button>
+    <h1>ASSISTA AO VIDEO!</h1>
+
+    <div class="video-container">
+        <!-- Vídeo com som habilitado -->
+        <video id="myVideo" controls="false" playsinline>
+            <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
+        </video>
+
+        <!-- Botão para iniciar o vídeo -->
+        <button id="startButton" onclick="startVideo()">Começar Vídeo</button>
+
+        <!-- Botão de bloqueio vermelho -->
+        <button id="btnRed" disabled>Link Liberado em Breve...</button>
+
+        <!-- Botão verde com link -->
+        <button id="btnGreen" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Liberado!</button>
+    </div>
 
     <script>
         const video = document.getElementById("myVideo");
@@ -68,21 +106,29 @@
         const btnRed = document.getElementById("btnRed");
         const btnGreen = document.getElementById("btnGreen");
 
+        // Função para iniciar o vídeo ao pressionar o botão "Começar Vídeo"
         function startVideo() {
-            video.style.display = "block"; // Mostrar o vídeo
-            startButton.style.display = "none"; // Esconder o botão de começar
-            video.play(); // Reproduzir o vídeo
-
-            // Exibir o botão vermelho logo após o vídeo começar
-            btnRed.style.display = "block"; // Mostrar botão vermelho
+            video.style.display = "block"; // Exibe o vídeo
+            startButton.style.display = "none"; // Esconde o botão de iniciar
+            btnRed.style.display = "block"; // Exibe o botão vermelho
+            video.play(); // Inicia o vídeo com som
         }
 
-        // Exibir o botão verde 7 segundos antes do vídeo terminar
+        // Evento que calcula o tempo restante e altera os botões
         video.addEventListener("loadedmetadata", function() {
+            // Define o tempo para liberar o botão verde
+            const unlockTime = (video.duration - 7) * 1000;
+
+            // Temporizador para alterar os botões
             setTimeout(() => {
-                btnGreen.style.display = "block"; // Mostrar botão verde
-                btnRed.style.display = "none"; // Esconder botão vermelho
-            }, (video.duration - 7) * 1000); // Tempo em milissegundos
+                btnRed.style.display = "none"; // Esconde o botão vermelho
+                btnGreen.style.display = "block"; // Exibe o botão verde
+            }, unlockTime); // Ajusta para 7 segundos antes do término
+        });
+
+        // Remove os controles padrão do vídeo, mantendo apenas o botão de play
+        video.addEventListener('play', function() {
+            video.controls = false;
         });
     </script>
 </body>
