@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,75 +10,69 @@
             color: white; /* Texto branco */
             text-align: center; /* Centralizar texto */
             font-family: Arial, sans-serif; /* Fonte simples */
-            margin: 0; /* Remove margens padrão */
-            padding: 0; /* Remove preenchimento padrão */
+            margin: 0;
+            padding: 20px;
         }
         h1 {
             margin-top: 20px; /* Espaço acima do título */
         }
         video {
-            width: 80%; /* Largura do vídeo */
+            width: 100%; /* Largura do vídeo responsiva */
             max-width: 800px; /* Largura máxima do vídeo */
             height: auto; /* Altura automática */
-            display: none; /* Oculta o vídeo inicialmente */
-            margin: 0 auto; /* Centraliza o vídeo */
+            display: block; /* Centralizar vídeo */
+            margin: 0 auto; /* Centralizar vídeo */
         }
-        #playButton {
-            padding: 15px 30px; /* Espaçamento interno do botão */
-            font-size: 20px; /* Tamanho da fonte */
+        #btnRed {
+            display: none; /* Escondido inicialmente */
+            background-color: red; /* Cor do botão vermelho */
             color: white; /* Texto branco */
-            background-color: green; /* Fundo verde */
-            border: none; /* Remove borda */
+            border: none; /* Sem borda */
+            padding: 15px 30px; /* Espaçamento */
             border-radius: 5px; /* Bordas arredondadas */
-            cursor: pointer; /* Cursor de mão ao passar sobre o botão */
-            transition: background-color 0.3s; /* Efeito de transição */
-            display: none; /* Esconde o botão inicialmente */
+            font-size: 18px; /* Tamanho da fonte */
+            cursor: pointer; /* Cursor de pointer */
             margin-top: 20px; /* Espaço acima do botão */
         }
-        #playButton:hover {
-            background-color: darkgreen; /* Cor do botão ao passar o mouse */
-        }
-        #unlockButton {
-            padding: 15px 30px; /* Espaçamento interno do botão */
-            font-size: 20px; /* Tamanho da fonte */
+        #btnGreen {
+            display: none; /* Escondido inicialmente */
+            background-color: green; /* Cor do botão verde */
             color: white; /* Texto branco */
-            background-color: red; /* Fundo vermelho */
-            border: none; /* Remove borda */
+            border: none; /* Sem borda */
+            padding: 15px 30px; /* Espaçamento */
             border-radius: 5px; /* Bordas arredondadas */
-            cursor: default; /* Cursor padrão */
-            display: none; /* Oculta o botão inicialmente */
+            font-size: 18px; /* Tamanho da fonte */
+            cursor: pointer; /* Cursor de pointer */
             margin-top: 20px; /* Espaço acima do botão */
         }
     </style>
 </head>
 <body>
-    <h1>ASSISTA AO VÍDEO!</h1>
-    <video id="video" autoplay>
+    <h1>ASSISTA AO VIDEO!</h1> <!-- Título do vídeo -->
+    <video id="myVideo" autoplay muted>
         <source src="https://raw.githubusercontent.com/aFortalezaDigital/FortalezaDigital/main/1104(1).mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
-    <button id="playButton">Começar Vídeo</button>
-    <br>
-    <button id="unlockButton">Liberado após terminar o vídeo</button>
+    <button id="startButton">Começar Vídeo</button>
+    <button id="btnRed">Liberado após terminar o vídeo</button>
+    <button id="btnGreen">Link Acesso</button>
 
     <script>
-        const video = document.getElementById('video');
-        const playButton = document.getElementById('playButton');
-        const unlockButton = document.getElementById('unlockButton');
+        const video = document.getElementById("myVideo");
+        const startButton = document.getElementById("startButton");
+        const btnRed = document.getElementById("btnRed");
+        const btnGreen = document.getElementById("btnGreen");
 
-        // Exibe o botão "Começar Vídeo" ao carregar a página
-        window.onload = function() {
-            playButton.style.display = 'inline-block'; // Mostra o botão de play
-        };
+        startButton.addEventListener("click", function() {
+            video.muted = false; // Ativar som
+            video.play(); // Iniciar o vídeo
+            btnRed.style.display = "block"; // Mostrar botão vermelho
+            btnGreen.style.display = "none"; // Esconder botão verde
 
-        playButton.addEventListener('click', function() {
-            video.style.display = 'block'; // Exibe o vídeo
-            video.play(); // Começa a reprodução do vídeo
-            playButton.style.display = 'none'; // Esconde o botão de play
-            unlockButton.style.display = 'none'; // Esconde o botão de desbloqueio
+            // Exibir o botão verde 7 segundos antes do vídeo terminar
             setTimeout(() => {
-                unlockButton.style.display = 'inline-block'; // Mostra o botão de desbloqueio
-            }, (video.duration - 7) * 1000); // Exibe 7 segundos antes do fim
+                btnGreen.style.display = "block"; // Mostrar botão verde
+            }, (video.duration - 7) * 1000); // Tempo em milissegundos
         });
     </script>
 </body>
