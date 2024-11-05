@@ -115,8 +115,8 @@
         <!-- Botão de bloqueio vermelho -->
         <button id="btnRed" disabled>Link Liberado em Breve...</button>
 
-        <!-- Botão verde com link -->
-        <button id="btnGreen" onclick="window.location.href='https://pay.kiwify.com.br/aoj6uLO'">Liberado!</button>
+        <!-- Botão verde com link para checkout -->
+        <button id="btnGreen" onclick="trackAndRedirect()">Liberado!</button>
     </div>
 
     <script>
@@ -131,6 +131,12 @@
             startButton.style.display = "none"; // Esconde o botão de iniciar
             btnRed.style.display = "block"; // Exibe o botão vermelho
             video.play(); // Inicia o vídeo com som
+        }
+
+        // Função para rastrear o clique e redirecionar para o checkout
+        function trackAndRedirect() {
+            fbq('track', 'InitiateCheckout'); // Evento de rastreamento para checkout
+            window.location.href = 'https://pay.kiwify.com.br/aoj6uLO'; // Redireciona para o link do checkout
         }
 
         // Evento que calcula o tempo restante e altera os botões
